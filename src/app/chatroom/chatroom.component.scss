@@ -1,0 +1,13 @@
+.chatroomWrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .feedWrapper {
+        flex-grow: 1;
+    }
+
+    .chatFormWrapper {
+        height: 55px;
+    }
+}

@@ -1,0 +1,21 @@
+.inputWrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    .messageInput {
+        height: 90%;
+        flex-grow: 1;
+
+        outline: none;
+    }
+
+    .sendBtn {
+        width: 100px;
+        height: 100%;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

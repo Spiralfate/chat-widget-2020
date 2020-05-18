@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "secondStart",
+      "public": "dist/secondStart",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

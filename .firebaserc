@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "secondstart-d34a7": {
+      "hosting": {
+        "secondStart": [
+          "secondstart-d34a7"
+        ]
+      }
+    }
+  }
+}
