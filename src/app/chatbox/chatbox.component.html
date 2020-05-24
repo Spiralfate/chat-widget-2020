@@ -1,0 +1,5 @@
+<div class="p-20 gapY-15">
+  <div *ngFor="let message of chatbox | async" class="">
+    <app-message [chatMessage]=message></app-message>
+  </div>
+</div>

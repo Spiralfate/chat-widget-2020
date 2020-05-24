@@ -1,0 +1,19 @@
+<div class="peers fxw-nw" [class.ai-fe]="!isAdmin">
+  <div class="peer mR-20" [class.ord-1]="!isAdmin" [class.mL-20]="!isAdmin">
+    <img class="w-2r bdrs-50p" src="https://randomuser.me/api/portraits/men/{{image}}.jpg" alt="">
+  </div>
+  <div class="peer peer-greed" [class.ord-0]="!isAdmin">
+    <div class="layers ai-fs gapY-5" [class.ai-fe]="!isAdmin">
+      <div class="layer">
+        <div class="peers fxw-nw ai-c pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
+          <div class="peer mR-10" [ngClass]="!isAdmin ? 'mL-10 ord-1' : ''">
+            <small>{{ timeStamp | date: 'shortTime' }}</small>
+          </div>
+          <div class="peer-greed">
+            <span>{{ messageContent }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
