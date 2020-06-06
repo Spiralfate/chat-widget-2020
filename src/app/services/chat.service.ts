@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import * as firebase from 'firebase/app';
 import {ChatMessage} from '../models/chat-message.model';
+import {User} from "../models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,10 @@ import {ChatMessage} from '../models/chat-message.model';
 export class ChatService {
   chatMessages: Observable<ChatMessage[]>;
   chatMessage: ChatMessage;
-  user: firebase.User;
+  // user: firebase.User;
   userName: Observable<string>;
+  userList: Observable<User[]>;
+  user: User;
 
   constructor(
     private db: AngularFireDatabase,
@@ -22,5 +25,9 @@ export class ChatService {
 
   getMessages(): Observable<ChatMessage[]> {
     return this.db.list('/messages', ref => ref.orderByKey().limitToLast(20)).valueChanges();
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.db.list('/users', ref => ref.orderByKey()).valueChanges();
   }
 }

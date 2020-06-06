@@ -1,6 +1,5 @@
 <div class="layer w-100 fxg-1 scrollable pos-r">
-    <app-user-item></app-user-item>
-    <app-user-item></app-user-item>
-    <app-user-item></app-user-item>
-    <app-user-item></app-user-item>
+  <div *ngFor="let user of userList | async" class="">
+    <app-user-item [user]=user></app-user-item>
+  </div>
 </div>
