@@ -15,5 +15,5 @@
 
 #chat-box {
   height: calc(100vh - #{$header-height} - 60px);
-  overflow: auto;
+  overflow: hidden;
 }

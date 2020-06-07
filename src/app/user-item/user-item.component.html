@@ -5,6 +5,6 @@
   </div>
   <div class="peer peer-greed pL-20">
     <h6 class="mB-0 lh-1 fw-400">{{ userName }}</h6>
-    <small class="lh-1 c-green-500">{{ status }}</small>
+    <small class="lh-1" [ngClass]="status == 'online' ? 'c-green-500' : 'c-red-500'">{{ status }}</small>
   </div>
 </div>

@@ -20,23 +20,14 @@
         <div class="peer peer-greed" id="chat-box">
           <div class="layers h-100">
             <div class="layer w-100 fxg-1 bgc-grey-200 scrollable pos-r">
-              <!-- Chat Box -->
+              <!-- Chat Box Messages -->
               <div class="p-20 gapY-15">
                 <app-chatbox></app-chatbox>
               </div>
             </div>
             <div class="layer w-100">
-              <!-- Chat Send -->
-              <div class="p-20 bdT bgc-white">
-                <div class="pos-r">
-                  <input type="text" class="form-control bdrs-10em m-0"
-                         placeholder="Type your message here...">
-                  <button type="button"
-                          class="btn btn-primary bdrs-50p w-2r p-0 h-2r pos-a r-1 t-1">
-                    <i class="fa fa-paper-plane-o"></i>
-                  </button>
-                </div>
-              </div>
+              <!-- Chat From Send -->
+                  <app-chat-form></app-chat-form>
             </div>
           </div>
         </div>

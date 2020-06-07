@@ -30,4 +30,29 @@ export class ChatService {
   getUsers(): Observable<User[]> {
     return this.db.list('/users', ref => ref.orderByKey()).valueChanges();
   }
+
+  sendMessage(msg: string) {
+    const timestamp = this.getTimeStamp();
+    this.db.list('messages').push({
+      message: msg,
+      timeSent: timestamp,
+      userName: 'Admin',
+      email: 'admin@mail.ru',
+      isAdmin: true,
+      image: 25,
+    });
+    console.log('Successfully called sendMessage()!');
+  }
+
+  getTimeStamp() {
+    const now = new Date();
+    const date = now.getUTCFullYear() + '/' +
+      (now.getUTCMonth() + 1) + '/' +
+      now.getUTCDate();
+    const time = now.getUTCHours() + ':' +
+      now.getUTCMinutes() + ':' +
+      now.getUTCSeconds();
+    return (date + ' ' + time);
+  }
+
 }
