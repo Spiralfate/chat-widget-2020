@@ -7,7 +7,7 @@
       <div class="layer">
         <div class="peers fxw-nw ai-c pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
           <div class="peer mR-10" [ngClass]="!isAdmin ? 'mL-10 ord-1' : ''">
-            <small>{{ timeStamp | date: 'shortTime' }}</small>
+            <small>{{ timeStamp | date: 'short' }}</small>
           </div>
           <div class="peer-greed">
             <span>{{ messageContent }}</span>

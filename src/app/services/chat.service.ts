@@ -32,26 +32,28 @@ export class ChatService {
   }
 
   sendMessage(msg: string) {
-    const timestamp = this.getTimeStamp();
-    this.db.list('messages').push({
-      message: msg,
-      timeSent: timestamp,
-      userName: 'Admin',
-      email: 'admin@mail.ru',
-      isAdmin: true,
-      image: 25,
-    });
-    console.log('Successfully called sendMessage()!');
+    if (msg) {
+      const timestamp = this.getTimeStamp();
+      this.db.list('messages').push({
+        message: msg,
+        timeSent: timestamp,
+        userName: 'Admin',
+        email: 'admin@mail.ru',
+        isAdmin: true,
+        image: 25,
+      });
+      console.log('sendMessage() success!');
+    }
   }
 
   getTimeStamp() {
     const now = new Date();
-    const date = now.getUTCFullYear() + '/' +
-      (now.getUTCMonth() + 1) + '/' +
-      now.getUTCDate();
-    const time = now.getUTCHours() + ':' +
-      now.getUTCMinutes() + ':' +
-      now.getUTCSeconds();
+    const date = now.getFullYear() + '/' +
+      (now.getMonth() + 1) + '/' +
+      now.getDate();
+    const time = now.getHours() + ':' +
+      now.getMinutes() + ':' +
+      now.getSeconds();
     return (date + ' ' + time);
   }
 
