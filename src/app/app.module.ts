@@ -40,7 +40,7 @@ import { ChatFormComponent } from './chat-form/chat-form.component';
     AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [
-    ChatService
+    ChatService,
   ],
   bootstrap: [AppComponent]
 })

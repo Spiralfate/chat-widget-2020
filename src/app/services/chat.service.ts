@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
+import * as io from 'socket.io-client';
+import { SocketService } from "./socket.service";
 
 import * as firebase from 'firebase/app';
 import {ChatMessage} from '../models/chat-message.model';
@@ -17,11 +19,26 @@ export class ChatService {
   userName: Observable<string>;
   userList: Observable<User[]>;
   user: User;
+  socket: any;
 
   constructor(
     private db: AngularFireDatabase,
     private afAuth: AngularFireAuth,
-  ) { }
+  ) {
+    this.socket = io.connect('http://localhost:3000', { query: 'username=Admin' })
+  }
+
+  listen(event: string) {
+    return new Observable(subscriber => {
+      this.socket.on(event, (data) => {
+        subscriber.next(data);
+        console.log('Listening...')
+      })
+      this.socket.on('add_msg', data => {
+        console.log('Message added')
+      })
+    })
+  }
 
   getMessages(): Observable<ChatMessage[]> {
     return this.db.list('/messages', ref => ref.orderByKey().limitToLast(20)).valueChanges();
@@ -41,6 +58,9 @@ export class ChatService {
         email: 'admin@mail.ru',
         isAdmin: true,
         image: 25,
+      });
+      this.socket.emit('new_message', {
+        message: msg,
       });
       console.log('sendMessage() success!');
     }
