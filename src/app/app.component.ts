@@ -14,5 +14,8 @@ export class AppComponent implements OnInit{
     this.srv.listen('add_msg').subscribe((res: any) => {
       console.log(res)
     })
+    this.srv.listen('connected_users').subscribe((res: any) => {
+      console.log(res)
+    })
   }
 }

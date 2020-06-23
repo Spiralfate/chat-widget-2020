@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {AngularFireDatabase} from '@angular/fire/database';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {Observable} from 'rxjs';
 import * as io from 'socket.io-client';
-import { SocketService } from "./socket.service";
+import {SocketService} from "./socket.service";
 
 import * as firebase from 'firebase/app';
 import {ChatMessage} from '../models/chat-message.model';
@@ -25,7 +25,7 @@ export class ChatService {
     private db: AngularFireDatabase,
     private afAuth: AngularFireAuth,
   ) {
-    this.socket = io.connect('http://localhost:3000', { query: 'username=Admin' })
+    this.socket = io.connect('http://localhost:3000', {query: 'username=Admin'})
   }
 
   listen(event: string) {
@@ -37,7 +37,19 @@ export class ChatService {
       this.socket.on('add_msg', data => {
         console.log('Message added')
       })
+      this.socket.on('getUsers', data => {
+        console.log(data);
+        return
+      })
     })
+  }
+
+  getUser(): Observable<User[]> {
+    return new Observable((observer) => {
+      this.socket.on('getUsers', (data) => {
+        observer.next(data);
+      })
+    });
   }
 
   getMessages(): Observable<ChatMessage[]> {
@@ -45,7 +57,11 @@ export class ChatService {
   }
 
   getUsers(): Observable<User[]> {
-    return this.db.list('/users', ref => ref.orderByKey()).valueChanges();
+  // return this.socket.on('getUsers', data=>{
+  //   console.log(data);
+  //   return data;
+  // });
+  return this.db.list('/users', ref => ref.orderByKey()).valueChanges();
   }
 
   sendMessage(msg: string) {
