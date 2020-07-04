@@ -9,10 +9,11 @@ import { ChatService } from '../services/chat.service';
 })
 export class MessageComponent implements OnInit {
   @Input() chatMessage: ChatMessage;
-  userEmail: string;
-  userName: string;
+  // userEmail: string;
+  // userName: string;
   messageContent: string;
   timeStamp: Date = new Date();
+  userID: string;
   isAdmin: boolean;
   image: number;
   // isOwnMessage: boolean;
@@ -22,8 +23,9 @@ export class MessageComponent implements OnInit {
   ngOnInit(chatMessage = this.chatMessage): void {
     this.messageContent = chatMessage.message;
     this.timeStamp = chatMessage.timeSent;
-    this.userEmail = chatMessage.email;
-    this.userName = chatMessage.userName;
+    this.userID = chatMessage.userID;
+    // this.userEmail = chatMessage.email;
+    // this.userName = chatMessage.userName;
     this.isAdmin = chatMessage.isAdmin;
     this.image = chatMessage.image;
   }

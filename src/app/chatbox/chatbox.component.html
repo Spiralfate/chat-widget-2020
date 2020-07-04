@@ -1,5 +1,8 @@
-<div class="p-20 gapY-15">
-  <div *ngFor="let message of chatbox | async" class="">
-    <app-message [chatMessage]=message></app-message>
+<div *ngIf="chatbox; else noMessages">
+  <div class="p-20 gapY-15">
+    <div *ngFor="let message of chatbox | async" class="">
+      <app-message [chatMessage]=message></app-message>
+    </div>
   </div>
 </div>
+<ng-template #noMessages><p class="ta-c">No messages yet.</p></ng-template>

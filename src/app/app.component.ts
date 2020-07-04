@@ -11,11 +11,11 @@ export class AppComponent implements OnInit{
   constructor(private srv: ChatService) { }
 
   ngOnInit(): void {
-    this.srv.listen('add_msg').subscribe((res: any) => {
-      console.log(res)
-    })
-    this.srv.listen('connected_users').subscribe((res: any) => {
-      console.log(res)
-    })
+    // this.srv.listen('add_msg').subscribe((res: any) => {
+    //   console.log(res)
+    // })
+    // this.srv.listen('connected_users').subscribe((res: any) => {
+    //   console.log(res)
+    // })
   }
 }

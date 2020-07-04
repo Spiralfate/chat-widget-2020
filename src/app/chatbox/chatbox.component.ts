@@ -14,10 +14,11 @@ export class ChatboxComponent implements OnInit {
   constructor(private chat: ChatService) { }
 
   ngOnInit(): void {
-    this.chatbox = this.chat.getMessages();
+    this.chatbox = this.chat.getMessagesForChatID();
+    // this.chatbox ? console.log('true') : console.log('false');
   }
   ngOnChanges(): void {
-    this.chatbox = this.chat.getMessages();
+    this.chatbox = this.chat.getMessagesForChatID();
   }
 
 }

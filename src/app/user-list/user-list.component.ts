@@ -1,7 +1,8 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
-import { Observable } from "rxjs";
-import { User } from "../models/user.model";
-import { ChatService } from "../services/chat.service";
+import {Component, OnInit, OnChanges} from '@angular/core';
+import {Observable, BehaviorSubject} from "rxjs";
+import {User} from "../models/user.model";
+import {ChatService} from "../services/chat.service";
+
 
 @Component({
   selector: 'app-user-list',
@@ -11,18 +12,26 @@ import { ChatService } from "../services/chat.service";
 export class UserListComponent implements OnInit {
   userList: Observable<User[]>
   userL: Observable<User[]>
+  userID: string
 
   constructor(private chat: ChatService) { }
 
   ngOnInit(): void {
-    this.userList = this.chat.getUsers();
+    // this.userList = this.chat.getUsers();
     this.userL = this.chat.getUser();
-    console.log(this.userList);
-    console.log(this.userL);
+    // this.userL = new Observable((observer) => {
+    //   this.socket.on('getUsers', (data) => {
+    //     observer.next(Object.values(data));
+    //     console.log(Object.values(data));
+    //   })
+    // });
+    // console.log(this.userList);
+    // console.log(this.userL);
   }
 
   ngOnChanges(): void {
-    this.userList = this.chat.getUsers();
+    // this.userList = this.chat.getUsers();
+    this.userL = this.chat.getUser();
   }
 
 }
