@@ -8,6 +8,7 @@ import { ChatService } from "../services/chat.service";
 })
 export class ChatFormComponent implements OnInit {
   message: string;
+  chatID: string;
 
   constructor(private chat: ChatService) { }
 
@@ -29,5 +30,9 @@ export class ChatFormComponent implements OnInit {
       this.send();
     }
   }
+  // getMessages(){
+  //   this.chatID = this.chat.storedUID + '_admin';
+  //   this.chat.getChat(this.chatID);
+  // }
 
 }
