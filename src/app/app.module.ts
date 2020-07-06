@@ -17,6 +17,8 @@ import { ChatboxComponent } from './chatbox/chatbox.component';
 import { ChatService } from "./services/chat.service";
 import { environment } from "../environments/environment";
 import { ChatFormComponent } from './chat-form/chat-form.component';
+import { UserChatroomComponent } from './user-chatroom/user-chatroom.component';
+import { UserChatboxComponent } from './user-chatbox/user-chatbox.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ChatFormComponent } from './chat-form/chat-form.component';
     MessageComponent,
     UserItemComponent,
     ChatboxComponent,
-    ChatFormComponent
+    ChatFormComponent,
+    UserChatroomComponent,
+    UserChatboxComponent
   ],
   imports: [
     BrowserModule,

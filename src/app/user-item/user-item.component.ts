@@ -31,6 +31,7 @@ export class UserItemComponent implements OnInit {
   getChat() {
     this.chat.getChat(this.chatID);
     this.chat.currentUser = this.userID;  // передаем в сервис id текущего пользователя
+    this.chat.activeChat = this.chatID;  // передаем в сервис id текущего открытого чата
   }
 
 }

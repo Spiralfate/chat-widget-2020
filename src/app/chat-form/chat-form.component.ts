@@ -11,8 +11,16 @@ export class ChatFormComponent implements OnInit {
 
   constructor(private chat: ChatService) { }
 
-  ngOnInit(): void {  }
+  ngOnInit(): void {
+    console.log('storedUID: ' + this.chat.storedUID);
+  }
   send(){
+    // let data =  {
+    //   message: this.message,
+    //   userID: this.chat.storedUID,
+    //
+    // }
+    // this.chat.activeChat = this.chat.storedUID + '_admin';
     this.chat.sendMessage(this.message);
     this.message = '';
   }

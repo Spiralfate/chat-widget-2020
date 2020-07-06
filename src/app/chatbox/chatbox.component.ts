@@ -15,6 +15,7 @@ export class ChatboxComponent implements OnInit {
 
   ngOnInit(): void {
     this.chatbox = this.chat.getMessagesForChatID();
+    // this.chatbox = this.chat.getMessagesForUser();
     // this.chatbox ? console.log('true') : console.log('false');
   }
   ngOnChanges(): void {

@@ -3,7 +3,6 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Observable} from 'rxjs';
 import * as io from 'socket.io-client';
-import {SocketService} from "./socket.service";
 
 import * as firebase from 'firebase/app';
 import {ChatMessage} from '../models/chat-message.model';
@@ -20,19 +19,51 @@ export class ChatService {
   userList: Observable<User[]>;
   user: User;
   socket: any;
-  currentUser: any;
+  currentUser: string;
+  storedUID: string;
+  socketID: string;
+  activeChat: string;
+  isAdmin: boolean;
+  image: string;
 
 
   constructor(
     private db: AngularFireDatabase,
     private afAuth: AngularFireAuth,
   ) {
+    this.storedUID = localStorage.getItem('userID');
+    console.log('userID on construct: ' + this.storedUID);
+    this.socketID = localStorage.getItem(('socketID'));
+    console.log('Extracted socket_id: ' + this.socketID);
+
     this.socket = io.connect('http://localhost:3000', {
       query: {
-        userName: 'Admin',
+        userID: this.storedUID,
       }
     })
+    this.socket.on('storeUserID', data => {
+      console.log('userID for storage: ' + data);
+      localStorage.setItem('userID', data);
+      // this.activeChat = data + '_admin';
+      // this.storedUID = data;
+    })
+    this.socket.on('storeSocketID', data => {
+      console.log('storeSocketID for storage: ' + data);
+      localStorage.setItem('socketID', `${data}`);
+    })
+
+
+    this.getUserByID(this.storedUID);
+    this.socket.on('getUserByID', data => {
+      this.image = data.image;
+      this.isAdmin = data.isAdmin;
+    })
   }
+
+  // saveAdminSocket(socketID: string) {
+  //   console.log('socket from comp: ' + socketID);
+  //   this.socket.emit('save_admin_socket', {socketID})
+  // }
 
   // listen(event: string) {
   //   return new Observable(subscriber => {
@@ -56,9 +87,26 @@ export class ChatService {
     console.log('requested chatID: ' + chatID);
   }
 
+  getUserByID(userID: string) {
+    this.socket.emit('get_user_data', {userID});
+  }
+
   getMessagesForChatID(): Observable<ChatMessage[]> {
+    console.log('CurrentUser: ' + this.storedUID);
+
     return new Observable((observer) => {
       this.socket.on('getMessagesForChatID', (data) => {
+        console.log(data);
+        // observer.next(Object.values(data));
+        // data ? this.content = true : this.content = false;
+        data ? observer.next(Object.values(data)) : observer.next(Object.values([]));
+      })
+    });
+  }
+
+  getMessagesForUser(): Observable<ChatMessage[]> {
+    return new Observable((observer) => {
+      this.socket.on('getMessagesForUser', (data) => {
         console.log(data);
         // observer.next(Object.values(data));
         // data ? this.content = true : this.content = false;
@@ -97,6 +145,7 @@ export class ChatService {
     if (msg) {
       const timestamp = this.getTimeStamp();
       console.log('CurrentUser: ' + this.currentUser);
+      console.log('CurrentUser: ' + this.storedUID);
       // firebase request
       // this.db.list('messages').push({
       //   message: msg,
@@ -108,10 +157,10 @@ export class ChatService {
       this.socket.emit('new_message', {
         message: msg,
         timeSent: timestamp,
-        userID: 'admin',
-        chatID: this.currentUser + '_admin',
-        isAdmin: true,
-        image: '99',
+        userID: this.storedUID,
+        chatID: this.activeChat,
+        isAdmin: this.isAdmin,
+        image: this.image,
       });
       console.log('sendMessage() success!');
     }
